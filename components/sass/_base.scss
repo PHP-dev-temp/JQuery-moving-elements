@@ -1,0 +1,14 @@
+/* Base styling */
+button, input{
+	width: 200px;
+	margin: 16px;
+    padding: 16px;
+    font-size: 18px;
+}
+input{
+	display: block;
+	margin: 16px auto;
+}
+.hide{
+	display: none;
+}

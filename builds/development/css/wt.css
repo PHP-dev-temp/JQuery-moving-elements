@@ -1,0 +1,45 @@
+/* Base styling */
+button, input {
+  width: 200px;
+  margin: 16px;
+  padding: 16px;
+  font-size: 18px;
+}
+
+input {
+  display: block;
+  margin: 16px auto;
+}
+
+.hide {
+  display: none;
+}
+
+/* Elements styling */
+.content {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+}
+
+#wt-container {
+  position: relative;
+  width: 100%;
+  background: url("../images/grid.gif");
+  border: 1px solid #909090;
+}
+
+.big {
+  position: absolute;
+  background-color: blue;
+  border: 1px solid white;
+  cursor: move;
+}
+
+.small {
+  position: absolute;
+  border-radius: 50%;
+  background-color: red;
+  border: 1px solid white;
+  cursor: move;
+}

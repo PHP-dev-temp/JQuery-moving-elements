@@ -7,9 +7,15 @@ jQuery.fn.dragelement = function () {
 	var parenth;	
 	var relX;
 	var relY;
-	var ismousedown;
+	var ismousedown; 
 
 	thistarget.bind('mousedown', function(e){
+		/*
+		  1 = Left   mouse button
+		  2 = Centre mouse button
+		  3 = Right  mouse button
+		*/
+		if (e.which != 1){return;}
 		targetw = thistarget.width();
 		targeth = thistarget.height();
 		parentw = thisparent.width();
@@ -30,7 +36,6 @@ jQuery.fn.dragelement = function () {
 			var mouseY = e.pageY;
 			var diffX = mouseX - relX;
 			var diffY = mouseY - relY;
-			// provera da li smo dosli do ivice
 			if(diffX < 0) diffX = 0;
 			if(diffY < 0) diffY = 0;
 			if(diffX > maxX) diffX = maxX;
@@ -43,27 +48,4 @@ jQuery.fn.dragelement = function () {
 		ismousedown = false;
 	});
 	return this;
-} // end jQuery dragelement function
-
-$(document).ready(function () {
-	var newElement = 0;
-	//if (typeof newElement === 'undefined' || newElement === null) {newElement = 0;}
-		
-	$(document).on('mouseover', '[id^=element]', function(){
-		$(this).dragelement();
-	});
-	
-	$('#big').on('click',function(){
-		newElement++;
-		$('#container').append('<div id="element-' + newElement.toString() + '" class="big" style="top: 200px; left: 400px;"></div>');
-	});
-	
-	$('#small').on('click',function(){
-		newElement++;
-		$('#container').append('<div id="element-' + newElement.toString() + '" class="small" style="top: 200px; left: 400px;"></div>');
-	});
-});
-	
-	
-
-	
+}
