@@ -40,18 +40,6 @@ gulp.task('concat', function() {
 	.pipe(gulp.dest(outputDir + 'js'))
 	.pipe(connect.reload())
 });
-/*
-gulp.task('compass', function() {
-  gulp.src(sassSources)
-	.pipe(compass({
-		sass: 'components/sass',
-		image: outputDir + 'images',
-		style: sassStyle
-	})
-	.on('error', gutil.log))
-	.pipe(gulp.dest(outputDir + 'css'))
-	.pipe(connect.reload())
-});*/
  
 gulp.task('compass', function() {
   gulp.src(sassSources)

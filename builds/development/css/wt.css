@@ -29,14 +29,14 @@ input {
   border: 1px solid #909090;
 }
 
-.big {
+.wt-table {
   position: absolute;
   background-color: blue;
   border: 1px solid white;
   cursor: move;
 }
 
-.small {
+.wt-chair {
   position: absolute;
   border-radius: 50%;
   background-color: red;

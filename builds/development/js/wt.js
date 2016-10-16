@@ -1,6 +1,6 @@
 
 function createwt(){
-	$('#wt-wrapper').html('<div id="wt-container"></div><button id="wt-big">Add big</button><button id="wt-small">Add small</button></div>');
+	$('#wt-wrapper').html('<div id="wt-container"></div><button id="wt-big">Add big</button><button id="wt-small">Add small</button><button id="wt-save">Save</button></div>');
 }
 
 jQuery.fn.startwt = function(){
@@ -9,11 +9,16 @@ jQuery.fn.startwt = function(){
 
 function newwt(){	
 	$('#wt-wrapper').html('<h2>New</h2> \
+		<input type="text" id="wt-name" name="wt-name" placeholder="Name of object" required /> \
 		<input type="number" id="wt-width" name="wt-width" placeholder="Enter width (m)" max="100" min="5" required /> \
 		<input type="number" id="wt-height" name="wt-height" placeholder="Enter height (m)" max="100" min="5" required /> \
 		<input type="submit" id="wt-submit" value="Submit"> \
 		<p></p> \
 	');
+}
+
+function showelement(wtelement, wtgrid){
+	$('#wt-container').append('<div id="element-' + wtelement.id.toString() + '" class=' + wtelement.type + ' style="width: ' + (wtelement.wtmeterw * wtgrid).toFixed(2).toString() + 'px; height: ' + (wtelement.wtmeterh * wtgrid).toFixed(2).toString() + 'px; top: ' + (wtelement.topm * wtgrid).toFixed(2).toString() + 'px; left: ' + (wtelement.leftm * wtgrid).toFixed(2).toString() + 'px;"></div>');
 }
 jQuery.fn.dragelement = function () {
 	var thistarget = $(this);
@@ -108,8 +113,6 @@ function doResize(wtelement){
 	}
 	
 }
-
-
 $(document).ready(function (){
 	var wtelementId = 0;
 	var wtelement = [];
@@ -118,6 +121,20 @@ $(document).ready(function (){
 	
 	$(document).on('click', '#new-wt', function(){	
 		newwt();
+	});
+	
+	$(document).on('click', '#open-wt', function(){	
+		$.getJSON("data.json", function(json) {
+			for(item in json){
+				wtelement.push(json[item]);
+			}
+			createwt();
+			$('#wt-container').responsive(wtelement[0].wtmeterw, wtelement[0].wtmeterh);
+			wtgrid = gridcalculate($('#wt-container').width(), wtelement[0].wtmeterw);
+			for (var i = 1; i < wtelement.length; i++) {
+				showelement(wtelement[i], wtgrid);
+			}
+		});
 	});
 	
 	$(document).on('click', '#wt-submit', function(){
@@ -148,20 +165,39 @@ $(document).ready(function (){
 		elementid = wtel.attr('id');
 		if (elementid.length && (elementid.indexOf('element-') == 0)){
 			elementid = elementid.slice(8);
-			wtelement[elementid].topm = (parseInt(wtel.css('top')) / wtgrid).toFixed(1);
-			wtelement[elementid].leftm = (parseInt(wtel.css('left')) / wtgrid).toFixed(1);
+			wtelement[elementid].topm = (parseInt(wtel.css('top')) / wtgrid).toFixed(2);
+			wtelement[elementid].leftm = (parseInt(wtel.css('left')) / wtgrid).toFixed(2);
 		}
 	});
 	
 	$(document).on('click', '#wt-big', function(){
-		$('#wt-container').append('<div id="element-' + wtelementId.toString() + '" class="big" style="width: ' + (0.8 * wtgrid).toFixed(1).toString() + 'px; height: ' + (1.6 * wtgrid).toFixed(1).toString() + 'px"></div>');
-		wtelement.push({'wtmeterh': 1.6, 'wtmeterw': 0.8, 'type': 'table', 'id': wtelementId, 'topm': 0, 'leftm': 0});
+		wtelement[wtelementId] = ({
+			'wtmeterh': 1.6, 
+			'wtmeterw': 0.8, 
+			'type': 'wt-table', 
+			'id': wtelementId, 
+			'topm': 0, 
+			'leftm': 0
+		});
+		showelement(wtelement[wtelementId], wtgrid);
 		wtelementId++;
 	});
 	
 	$(document).on('click', '#wt-small', function(){
-		$('#wt-container').append('<div id="element-' + wtelementId.toString() + '" class="small" style="width: ' + (0.6 * wtgrid).toFixed(1).toString() + 'px; height: ' + (0.6 * wtgrid).toFixed(1).toString() + 'px"></div>');
-		wtelement.push({'wtmeterh': 0.6, 'wtmeterw': 0.6, 'type': 'table', 'id': wtelementId, 'topm': 0, 'leftm': 0});
+		wtelement[wtelementId] = ({
+			'wtmeterh': 0.6, 
+			'wtmeterw': 0.6, 
+			'type': 'wt-chair', 
+			'id': wtelementId, 
+			'topm': 0, 
+			'leftm': 0
+		});
+		showelement(wtelement[wtelementId], wtgrid);
 		wtelementId++;
+	});
+	
+	$(document).on('click', '#wt-save', function(){
+		data = JSON.stringify(wtelement);
+		console.log(data);;
 	});
 });
