@@ -1,6 +1,6 @@
 
 function createwt(){
-	$('#wt-wrapper').html('<div id="wt-container"></div><button id="wt-big">Add big</button><button id="wt-small">Add small</button><button id="wt-save">Save</button></div>');
+	$('#wt-wrapper').html('<div id="wt-container"><div id="cmenu"></div></div><button id="wt-big">Add a table</button><button id="wt-small">Add a chair</button><button id="wt-save">Save</button></div>');
 }
 
 jQuery.fn.startwt = function(){
@@ -83,16 +83,16 @@ jQuery.fn.responsive = function (wtmeterw, wtmeterh) {
 
 jQuery.fn.responsiveElement = function (wtelment, wtgrid) {
 	thistarget = $(this);
-	targetw = (wtelment.wtmeterw * wtgrid).toFixed(1).toString() + 'px';
-	targeth = (wtelment.wtmeterh * wtgrid).toFixed(1).toString() + 'px';
+	targetw = (wtelment.wtmeterw * wtgrid).toFixed(3).toString() + 'px';
+	targeth = (wtelment.wtmeterh * wtgrid).toFixed(3).toString() + 'px';
 	thistarget.width(targetw).height(targeth);
-	targettop = (wtelment.topm * wtgrid).toFixed(1).toString() + 'px';
-	targetleft = (wtelment.leftm * wtgrid).toFixed(1).toString() + 'px';
+	targettop = (wtelment.topm * wtgrid).toFixed(3).toString() + 'px';
+	targetleft = (wtelment.leftm * wtgrid).toFixed(3).toString() + 'px';
 	thistarget.css({'top': targettop, 'left': targetleft});
 }
 
 function gridcalculate(wtdivw, wtmeterw){
-	grid = (wtdivw/wtmeterw).toFixed(2);
+	grid = (wtdivw/wtmeterw).toFixed(3);
 	return grid;
 }
 
@@ -154,6 +154,12 @@ $(document).ready(function (){
 	$(window).resize(function(){	
 		wtgridtemp = doResize(wtelement);
 		if (wtgridtemp){wtgrid = wtgridtemp;}		
+	});	
+	
+	$(document).on('dblclick', '[id^=element]', function(e){
+		cmtop = (parseInt($(this).css('top'), 10) + 20) + 'px';
+		cmleft = (parseInt($(this).css('left'), 10) + 20) + 'px';
+		$('#cmenu').html('<ul><li><a data-action="move">move</a></li><li><a data-action="rotate">rotate</a></li><li><a data-action="resize">resize</a></li><li><a data-action="clone">clone</a></li><li><a data-action="close">close</a></li></ul>').css({'top': cmtop, 'left': cmleft});	
 	});
 	
 	$(document).on('mouseover', '[id^=element]', function(){
@@ -165,8 +171,8 @@ $(document).ready(function (){
 		elementid = wtel.attr('id');
 		if (elementid.length && (elementid.indexOf('element-') == 0)){
 			elementid = elementid.slice(8);
-			wtelement[elementid].topm = (parseInt(wtel.css('top')) / wtgrid).toFixed(2);
-			wtelement[elementid].leftm = (parseInt(wtel.css('left')) / wtgrid).toFixed(2);
+			wtelement[elementid].topm = (parseInt(wtel.css('top')) / wtgrid).toFixed(3);
+			wtelement[elementid].leftm = (parseInt(wtel.css('left')) / wtgrid).toFixed(3);
 		}
 	});
 	

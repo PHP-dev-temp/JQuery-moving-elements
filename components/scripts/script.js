@@ -39,6 +39,12 @@ $(document).ready(function (){
 	$(window).resize(function(){	
 		wtgridtemp = doResize(wtelement);
 		if (wtgridtemp){wtgrid = wtgridtemp;}		
+	});	
+	
+	$(document).on('dblclick', '[id^=element]', function(e){
+		cmtop = (parseInt($(this).css('top'), 10) + 20) + 'px';
+		cmleft = (parseInt($(this).css('left'), 10) + 20) + 'px';
+		$('#cmenu').html('<ul><li><a data-action="move">move</a></li><li><a data-action="rotate">rotate</a></li><li><a data-action="resize">resize</a></li><li><a data-action="clone">clone</a></li><li><a data-action="close">close</a></li></ul>').css({'top': cmtop, 'left': cmleft});	
 	});
 	
 	$(document).on('mouseover', '[id^=element]', function(){
@@ -50,8 +56,8 @@ $(document).ready(function (){
 		elementid = wtel.attr('id');
 		if (elementid.length && (elementid.indexOf('element-') == 0)){
 			elementid = elementid.slice(8);
-			wtelement[elementid].topm = (parseInt(wtel.css('top')) / wtgrid).toFixed(2);
-			wtelement[elementid].leftm = (parseInt(wtel.css('left')) / wtgrid).toFixed(2);
+			wtelement[elementid].topm = (parseInt(wtel.css('top')) / wtgrid).toFixed(3);
+			wtelement[elementid].leftm = (parseInt(wtel.css('left')) / wtgrid).toFixed(3);
 		}
 	});
 	

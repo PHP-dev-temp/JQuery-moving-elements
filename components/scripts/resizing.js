@@ -9,16 +9,16 @@ jQuery.fn.responsive = function (wtmeterw, wtmeterh) {
 
 jQuery.fn.responsiveElement = function (wtelment, wtgrid) {
 	thistarget = $(this);
-	targetw = (wtelment.wtmeterw * wtgrid).toFixed(1).toString() + 'px';
-	targeth = (wtelment.wtmeterh * wtgrid).toFixed(1).toString() + 'px';
+	targetw = (wtelment.wtmeterw * wtgrid).toFixed(3).toString() + 'px';
+	targeth = (wtelment.wtmeterh * wtgrid).toFixed(3).toString() + 'px';
 	thistarget.width(targetw).height(targeth);
-	targettop = (wtelment.topm * wtgrid).toFixed(1).toString() + 'px';
-	targetleft = (wtelment.leftm * wtgrid).toFixed(1).toString() + 'px';
+	targettop = (wtelment.topm * wtgrid).toFixed(3).toString() + 'px';
+	targetleft = (wtelment.leftm * wtgrid).toFixed(3).toString() + 'px';
 	thistarget.css({'top': targettop, 'left': targetleft});
 }
 
 function gridcalculate(wtdivw, wtmeterw){
-	grid = (wtdivw/wtmeterw).toFixed(2);
+	grid = (wtdivw/wtmeterw).toFixed(3);
 	return grid;
 }
 

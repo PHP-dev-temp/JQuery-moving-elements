@@ -1,6 +1,6 @@
 
 function createwt(){
-	$('#wt-wrapper').html('<div id="wt-container"></div><button id="wt-big">Add big</button><button id="wt-small">Add small</button><button id="wt-save">Save</button></div>');
+	$('#wt-wrapper').html('<div id="wt-container"><div id="cmenu"></div></div><button id="wt-big">Add a table</button><button id="wt-small">Add a chair</button><button id="wt-save">Save</button></div>');
 }
 
 jQuery.fn.startwt = function(){

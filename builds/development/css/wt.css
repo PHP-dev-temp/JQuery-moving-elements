@@ -17,7 +17,8 @@ input {
 
 /* Elements styling */
 .content {
-  width: 90%;
+  width: 95%;
+  max-width: 750px;
   margin: auto;
   text-align: center;
 }
@@ -27,6 +28,7 @@ input {
   width: 100%;
   background: url("../images/grid.gif");
   border: 1px solid #909090;
+  z-index: 3;
 }
 
 .wt-table {
@@ -34,6 +36,7 @@ input {
   background-color: blue;
   border: 1px solid white;
   cursor: move;
+  z-index: 5;
 }
 
 .wt-chair {
@@ -42,4 +45,16 @@ input {
   background-color: red;
   border: 1px solid white;
   cursor: move;
+  z-index: 7;
+}
+
+#cmenu {
+  position: absolute;
+  padding: 0 5px;
+  background-color: rgba(255, 165, 0, 0.8);
+  z-index: 9;
+}
+#cmenu ul {
+  padding: 5px;
+  margin-left: 15px;
 }
