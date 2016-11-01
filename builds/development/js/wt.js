@@ -203,7 +203,19 @@ $(document).ready(function (){
 	});
 	
 	$(document).on('click', '#wt-save', function(){
-		data = JSON.stringify(wtelement);
-		console.log(data);;
+		jsonString = JSON.stringify(wtelement);
+		$.ajax({
+            type: 'POST',
+            url: 'phpajax.php',
+            data: {data : jsonString}, 
+			cache: false,
+        })
+        .done(function(response) {
+          alert('Ajax work!');
+          console.log(response);
+		})
+        .fail(function(data) {
+          alert('Ajax don\'t work!');
+		});		
 	});
 });
